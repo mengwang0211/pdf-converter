@@ -8,6 +8,35 @@
     <artifactId>pdf-converter</artifactId>
     <version>1.0.0</version>
 
+
+    <developers>
+        <developer>
+            <organization>github</organization>
+            <name>Meng Wang</name>
+            <email>walkmanlucas@gmail.com</email>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <tag>master</tag>
+        <url>https://github.com/mengwang0211/pdf-converter.git</url>
+        <connection>scm:git:https://github.com/mengwang0211/pdf-converter.git</connection>
+        <developerConnection>scm:git:https://github.com/mengwang0211/pdf-converter.git</developerConnection>
+    </scm>
+
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -56,4 +85,15 @@
     </dependencies>
 
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
