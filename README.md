@@ -11,7 +11,7 @@
 
     <groupId>io.github.mengwang0211</groupId>
     <artifactId>pdf-converter</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
 ```
 
