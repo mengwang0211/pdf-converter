@@ -23,38 +23,38 @@ public class FreeMarkToPdf {
      * @param replaceData      replace data
      * @return 成功 ，返回文件名；失败，返回null。
      */
-    public static String convert(String workPath, String templateFileName, Map<String, Object> replaceData){
-        Map<String,String> htmlFileName = FileNamer.nameFile("html");
+    public static String convert(String workPath, String templateFileName, Map<String, Object> replaceData) {
+        Map<String, String> htmlFileName = FileNamer.nameFile("html");
 
         String filePath = htmlFileName.get("filePath");
         String fileName = htmlFileName.get("fileName");
 
         File path = new File(workPath + filePath);
-        if (!path.exists()){
+        if (!path.exists()) {
             path.mkdir();
-            log.debug("mkdir dir : {}",workPath + filePath);
+            log.debug("mkdir dir : {}", workPath + filePath);
         }
 
         String realHtml = new StringBuilder(workPath).append(filePath)
-                                 .append("/").append(fileName).toString();
+                .append("/").append(fileName).toString();
         File html = new File(realHtml);
-        if (!html.exists()){
+        if (!html.exists()) {
             try {
                 html.createNewFile();
             } catch (IOException e) {
                 log.error(e.getMessage());
             }
         }
-        FreeMarkToHtml.freemarkToHtml(workPath, templateFileName, replaceData,  realHtml);
+        FreeMarkToHtml.freemarkToHtml(workPath, templateFileName, replaceData, realHtml);
         try {
 
-            Map<String,String> pdfFileName = FileNamer.nameFile("pdf");
+            Map<String, String> pdfFileName = FileNamer.nameFile("pdf");
             String pdfName = pdfFileName.get("fileName");
 
             String realPDF = new StringBuilder(workPath).append(filePath)
                     .append("/").append(pdfName).toString();
             File pdf = new File(realPDF);
-            if (!pdf.exists()){
+            if (!pdf.exists()) {
                 try {
                     pdf.createNewFile();
                 } catch (IOException e) {
@@ -63,6 +63,15 @@ public class FreeMarkToPdf {
             }
 
             XHtml2Pdf.XHtml2Pdf(realHtml, realPDF);
+
+            // del html file
+            delFile(realHtml);
+
+            // del xhtml file
+            int i = realHtml.lastIndexOf(".html");
+            String xhtml = null;
+            xhtml = realHtml.substring(0, i) + ".xhtml";
+            delFile(xhtml);
             return realPDF;
         } catch (FileNotFoundException e) {
             log.error(e.getMessage());
@@ -74,6 +83,19 @@ public class FreeMarkToPdf {
             log.error(e.getMessage());
         }
         return null;
+    }
+
+
+    /**
+     * Del file *
+     *
+     * @param filePath file path
+     */
+    public static void delFile(String filePath) {
+        File file = new File(filePath);
+        if (file.exists() && file.isFile()) {
+            file.delete();
+        }
     }
 
 }
