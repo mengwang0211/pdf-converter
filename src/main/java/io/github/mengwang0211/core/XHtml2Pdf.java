@@ -17,6 +17,7 @@ import com.itextpdf.tool.xml.pipeline.css.CssResolverPipeline;
 import com.itextpdf.tool.xml.pipeline.end.PdfWriterPipeline;
 import com.itextpdf.tool.xml.pipeline.html.HtmlPipeline;
 import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
+import io.github.mengwang0211.adapter.CNChunkCssApplier;
 
 import java.io.*;
 
@@ -54,6 +55,7 @@ public class XHtml2Pdf {
             fontProvider.setUseUnicode(true);
             // 使用我们的字体提供器，并将其设置为unicode字体样式
             CssAppliers cssAppliers = new CssAppliersImpl(fontProvider);
+            cssAppliers.setChunkCssAplier(new CNChunkCssApplier());
             HtmlPipelineContext htmlContext = new HtmlPipelineContext(
                     cssAppliers);
             htmlContext.setTagFactory(Tags.getHtmlTagProcessorFactory());
