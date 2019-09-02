@@ -26,16 +26,15 @@ public class FreeMarkToPdf {
     public static String convert(String workPath, String templateFileName, Map<String, Object> replaceData) {
         Map<String, String> htmlFileName = FileNamer.nameFile("html");
 
-        String filePath = htmlFileName.get("filePath");
         String fileName = htmlFileName.get("fileName");
 
-        File path = new File(workPath + filePath);
+        File path = new File(workPath);
         if (!path.exists()) {
             path.mkdir();
-            log.debug("mkdir dir : {}", workPath + filePath);
+            log.debug("mkdir dir : {}", workPath);
         }
 
-        String realHtml = new StringBuilder(workPath).append(filePath)
+        String realHtml = new StringBuilder(workPath)
                 .append("/").append(fileName).toString();
         File html = new File(realHtml);
         if (!html.exists()) {
@@ -51,7 +50,7 @@ public class FreeMarkToPdf {
             Map<String, String> pdfFileName = FileNamer.nameFile("pdf");
             String pdfName = pdfFileName.get("fileName");
 
-            String realPDF = new StringBuilder(workPath).append(filePath)
+            String realPDF = new StringBuilder(workPath)
                     .append("/").append(pdfName).toString();
             File pdf = new File(realPDF);
             if (!pdf.exists()) {
